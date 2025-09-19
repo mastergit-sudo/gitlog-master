@@ -9,8 +9,7 @@ layout: none
   <title>Yazılarım</title>
 </head>
 <body>
-  <h1>Yazılar</h1>
-  <ul>
+  <ul style="list-style:none;">
     {% for post in site.posts %}
       <li>
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a> – {{ post.date | date: "%Y-%m-%d" }}
