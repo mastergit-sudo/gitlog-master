@@ -1,3 +1,4 @@
-title: "Blogum"
-description: "Markdown ile yazılar"
+title: "Yazılarım"
 markdown: kramdown
+url: "https://mastergit-sudo.github.io"   # domain
+baseurl: "/gitlog-master"                 # repo ismi
