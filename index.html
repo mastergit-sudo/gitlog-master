@@ -1,12 +1,21 @@
 ---
-layout: default
+layout: none
 ---
 
-<h1>Yazılar</h1>
-<ul>
-  {% for post in site.posts %}
-    <li>
-		<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Yazılarım</title>
+</head>
+<body>
+  <h1>Yazılar</h1>
+  <ul>
+    {% for post in site.posts %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a> – {{ post.date | date: "%Y-%m-%d" }}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
