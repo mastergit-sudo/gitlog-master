@@ -7,14 +7,77 @@ layout: none
 <head>
   <meta charset="UTF-8">
   <title>Yazılarım</title>
+  <script src="https://cdn.jsdelivr.net/npm/lunr/lunr.min.js"></script>
+  <style>
+    #search { margin-bottom: 20px; padding: 5px; width: 300px; }
+    #results { margin-top: 30px; }
+    .result { margin-bottom: 15px; }
+    .result a { font-weight: bold; font-size: 18px; text-decoration: none; }
+    .result p { margin: 5px 0; color: #555; }
+  </style>
 </head>
 <body>
-  <ul style="list-style-type: none;">
+  <h1>Yazılar</h1>
+
+  <!-- Arama kutusu -->
+  <input type="text" id="search" placeholder="Yazı ara...">
+
+  <!-- Normal liste -->
+  <h2>Tüm Yazılar</h2>
+  <ul id="post-list">
     {% for post in site.posts %}
       <li>
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a> – {{ post.date | date: "%Y-%m-%d" }}
       </li>
     {% endfor %}
   </ul>
+
+  <!-- Arama sonuçları -->
+  <div id="results"></div>
+
+  <script>
+    let idx, store;
+
+    // JSON dosyasını yükle
+    fetch("{{ '/search.json' | relative_url }}")
+      .then(res => res.json())
+      .then(data => {
+        store = data;
+        idx = lunr(function () {
+          this.field("title");
+          this.field("content");
+          this.ref("url");
+
+          data.forEach(doc => this.add(doc));
+        });
+      });
+
+    // Arama kutusu
+    document.getElementById("search").addEventListener("input", function() {
+      const query = this.value;
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      if (!query) return; // boşsa arama yapma
+
+      const results = idx.search(query);
+
+      if (results.length === 0) {
+        resultsDiv.innerHTML = "<p>Sonuç bulunamadı.</p>";
+      } else {
+        resultsDiv.innerHTML = "<h2>Arama Sonuçları</h2>";
+        results.forEach(r => {
+          const item = store.find(d => d.url === r.ref);
+          const div = document.createElement("div");
+          div.className = "result";
+          div.innerHTML = `
+            <a href="${item.url}">${item.title}</a>
+            <p>${item.content.substring(0,150)}...</p>
+          `;
+          resultsDiv.appendChild(div);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
