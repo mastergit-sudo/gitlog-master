@@ -1,6 +1,6 @@
 ---
 layout: none
-title: "testosteron için sade beslenme listesi"
+title: "testosteron-için-sade-beslenme-listesi"
 date: 2025-09-20
 ---
 

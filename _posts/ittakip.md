@@ -1,6 +1,6 @@
 ---
 layout: none
-title: "IT sektörü için trend takip haber siteleri"
+title: "IT-sektörü-için-trend-takip-haber-siteleri"
 date: 2025-09-20
 ---
 
