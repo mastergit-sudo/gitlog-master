@@ -1,6 +1,6 @@
 ---
 layout: none
-title: "erkeksi kokmak için bakım tekniği"
+title: "erkekbakım"
 date: 2025-09-20
 ---
 
